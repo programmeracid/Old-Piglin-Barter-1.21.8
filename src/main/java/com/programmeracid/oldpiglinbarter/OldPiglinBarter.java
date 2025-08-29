@@ -1,5 +1,6 @@
 package com.programmeracid.oldpiglinbarter;
 
+import com.programmeracid.oldpiglinbarter.util.ModLootTableModifiers;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -12,6 +13,6 @@ public class OldPiglinBarter implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
+		ModLootTableModifiers.modifyLootTables();
 	}
 }
