@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "oldpiglinbarter",
+	"version": "${version}",
+	"name": "OldPiglinBarter",
+	"description": "This Mod brings back the 1.16 Piglin Trades for the Latest Version",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/programmeracid"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/oldpiglinbarter/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.programmeracid.oldpiglinbarter.OldPiglinBarter"
+		],
+		"fabric-datagen": [
+			"com.programmeracid.oldpiglinbarter.OldPiglinBarterDataGenerator"
+		],
+		"client": [
+			"com.programmeracid.oldpiglinbarter.OldPiglinBarterClient"
+		]
+	},
+	"mixins": [
+		"oldpiglinbarter.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.2",
+		"minecraft": "~1.21.8",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
