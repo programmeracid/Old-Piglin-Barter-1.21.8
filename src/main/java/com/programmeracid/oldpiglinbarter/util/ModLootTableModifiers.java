@@ -1,70 +1,38 @@
 package com.programmeracid.oldpiglinbarter.util;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.component.DataComponentTypes;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
-import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.EnchantRandomlyLootFunction;
-import net.minecraft.loot.function.EnchantWithLevelsLootFunction;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.function.SetPotionLootFunction;
+import net.minecraft.loot.function.*;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.potion.Potions;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.util.Identifier;
 
-
-import java.util.List;
 
 public class ModLootTableModifiers {
-    private static final Identifier PIGLIN_BARTER_ID = Identifier.of("minecraft", "gameplay/piglin_barter");
+    //private static final Identifier PIGLIN_BARTER_ID = Identifier.of("minecraft", "gameplay/piglin_barter");
 
 
 
     public static void modifyLootTables() {
-//        LootTableEvents.MODIFY.register((key, tableBuilder, source, registry) -> {
-//            // key.getValue() matches how the example you pasted checks IDs
-//            if (LootTables.PIGLIN_BARTERING_GAMEPLAY.equals(key)) {
-//                // Example: add a pearl pool (2-4 pearls) with a configurable chance
-//                LootPool.Builder pearlPool = LootPool.builder()
-//                        .rolls(ConstantLootNumberProvider.create(1))
-//                        .conditionally(RandomChanceLootCondition.builder(0.0473f)) // 5% chance per ingot (adjust this)
-//                        .with(ItemEntry.builder(Items.ENDER_PEARL)
-//                                .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(4.0f, 6.0f)))
-//                        );
-//
-//                // Example: add obsidian (1 per successful roll) with vanilla-ish chance
-//                LootPool.Builder obsidianPool = LootPool.builder()
-//                        .rolls(ConstantLootNumberProvider.create(1))
-//                        .conditionally(RandomChanceLootCondition.builder(0.0946f)) // ~8.71% chance
-//                        .with(ItemEntry.builder(Items.OBSIDIAN)
-//                                .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1)))
-//                        );
-//
-//                tableBuilder.pool(pearlPool.build());
-//                tableBuilder.pool(obsidianPool.build());
-//            }
-//        });
+
 
         LootTableEvents.REPLACE.register(((registryKey, lootTable, lootTableSource, wrapperLookup) -> {
 
 
             if (LootTables.PIGLIN_BARTERING_GAMEPLAY.equals(registryKey)){
 
-                RegistryWrapper.WrapperLookup registries = wrapperLookup;
-                RegistryEntry<Enchantment> soulSpeed = registries.getOrThrow(RegistryKeys.ENCHANTMENT)
+                RegistryEntry<Enchantment> soulSpeed = wrapperLookup.getOrThrow(RegistryKeys.ENCHANTMENT)
                         .getOrThrow(Enchantments.SOUL_SPEED);
+
 
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -72,17 +40,17 @@ public class ModLootTableModifiers {
                         // Enchanted Book with Soul Speed (5/423)
                         .with(ItemEntry.builder(Items.ENCHANTED_BOOK)
                                 .weight(5)
-                                .apply(new EnchantWithLevelsLootFunction.Builder(
-                                        UniformLootNumberProvider.create(1, 3))
-                                        .options(RegistryEntryList.of(soulSpeed))
+                                .apply(
+                                        (new SetEnchantmentsLootFunction.Builder())
+                                                .enchantment(soulSpeed , UniformLootNumberProvider.create(1f,3f))
                                 ))
 
-                        // Iron Boots with Soul Speed (8/423)
+                        // Iron Boots with Soul Speed (5/423)
                         .with(ItemEntry.builder(Items.IRON_BOOTS)
                                 .weight(5)
-                                .apply(new EnchantWithLevelsLootFunction.Builder(
-                                        UniformLootNumberProvider.create(1, 3))
-                                        .options(RegistryEntryList.of(soulSpeed))
+                                .apply(
+                                        (new SetEnchantmentsLootFunction.Builder())
+                                                .enchantment(soulSpeed , UniformLootNumberProvider.create(1f,3f))
                                 )
                         )
 
