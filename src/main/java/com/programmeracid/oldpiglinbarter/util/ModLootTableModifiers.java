@@ -19,7 +19,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 
 public class ModLootTableModifiers {
     //private static final Identifier PIGLIN_BARTER_ID = Identifier.of("minecraft", "gameplay/piglin_barter");
-
+ 
 
 
     public static void modifyLootTables() {
